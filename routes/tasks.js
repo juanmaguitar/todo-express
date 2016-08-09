@@ -1,71 +1,85 @@
-
-/*
- * GET users listing.
- */
+var _tasks = [];
+var counter = 0;
 
 exports.list = function(req, res, next){
-  req.db.tasks.find({completed: false}).toArray(function(error, tasks){
-    if (error) return next(error);
-    res.render('tasks', {
-      title: 'Todo List',
-      tasks: tasks || []
-    });
+  var pendingTasks = _tasks.filter(function(item, i){
+    return !item.completed;
+  })
+  res.render('tasks', {
+    title: 'Todo List',
+    currentUrl: '/tasks',
+    tasks: pendingTasks || []
   });
 };
 
 exports.add = function(req, res, next){
   if (!req.body || !req.body.name) return next(new Error('No data provided.'));
-  req.db.tasks.save({
+  var task = {
+    _id: ++counter,
     name: req.body.name,
     createTime: new Date(),
     completed: false
-  }, function(error, task){
-    if (error) return next(error);
-    if (!task) return next(new Error('Failed to save.'));
-    console.info('Added %s with id=%s', task.name, task._id);
-    res.redirect('/tasks');
-  })
+  }
+  _tasks.push(task);
+  console.info('Added %s with id=%s', task.name, task._id);
+  res.redirect('/tasks');
 };
 
 exports.markAllCompleted = function(req, res, next) {
   if (!req.body.all_done || req.body.all_done !== 'true') return next();
-  req.db.tasks.update({
-    completed: false
-  }, {$set: {
-    completeTime: new Date(),
-    completed: true
-  }}, {multi: true}, function(error, count){
-    if (error) return next(error);
-    console.info('Marked %s task(s) completed.', count);
-    res.redirect('/tasks');
-  })
+  var count = 0;
+  _tasks = _tasks.map(function(item, i) {
+    if (!item.completed) {
+      item.completeTime = new Date();
+      item.completed = true;
+      count++;
+    }
+    return item;
+  });
+  console.info('Marked %s task(s) completed.', count);
+  res.redirect('/tasks');
 };
 
 exports.completed = function(req, res, next) {
-  req.db.tasks.find({completed: true}).toArray(function(error, tasks) {
-    res.render('tasks_completed', {
-      title: 'Completed',
-      tasks: tasks || []
-    });
+  var completedTasks = _tasks.filter(function(item,i){ return item.completed; })
+  res.render('tasks_completed', {
+    title: 'Completed',
+    currentUrl: '/tasks/completed',
+    tasks: completedTasks || []
   });
 };
 
 exports.markCompleted = function(req, res, next) {
+
   if (!req.body.completed) return next(new Error('Param is missing.'));
   var completed = req.body.completed === 'true';
-  req.db.tasks.updateById(req.task._id, {$set: {completeTime: completed ? new Date() : null, completed: completed}}, function(error, count) {
-    if (error) return next(error);
-    if (count !==1) return next(new Error('Something went wrong.'));
-    console.info('Marked task %s with id=%s completed.', req.task.name, req.task._id);
-    res.redirect('/tasks');
+  var idTask = req.taskId;
+  var completedName = "";
+  _tasks.map(function(item, i) {
+    if (item._id == idTask) {
+      item.completed = true;
+      completedName = item.name;
+    }
   })
+
+  console.info('Marked task %s with id=%s completed.', completedName, idTask);
+  res.redirect('/tasks');
+
 };
 
 exports.del = function(req, res, next) {
-  req.db.tasks.removeById(req.task._id, function(error, count) {
-    if (error) return next(error);
-    if (count !==1) return next(new Error('Something went wrong.'));
-    console.info('Deleted task %s with id=%s completed.', req.task.name, req.task._id);
-    res.status(204).send();
+
+  var idTask = req.taskId;
+  var removedName = ""
+
+  _tasks = _tasks.filter(function(item, i) {
+    var idRemove = parseInt(idTask,10)
+    if (item._id === idRemove) {
+      removedName = item.name;
+    }
+    return item._id !== idRemove;
   });
+
+  console.info('Deleted task %s with id=%s completed.', removedName, idTask);
+  res.status(204).send();
 };

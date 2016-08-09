@@ -8,3 +8,6 @@ body {
 a {
   color: #00B7FF;
 }
+
+.nav>li>a { padding-left:0 }
+.item:nth-child(n+2) { margin: 25px 0; }
