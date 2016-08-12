@@ -10,6 +10,8 @@ var favicon = require('serve-favicon'),
 
 var routerTasks = require('./routes/tasks');
 var PORT = process.env.PORT || 3000;
+
+
 var app = express();
 
 app.locals.appname = 'Express.js Todo App'
@@ -28,8 +30,8 @@ if ('development' == app.get('env')) {
   app.use(errorHandler());
 }
 
-var url = 'mongodb://localhost:27017/todo';
-var db = MongoClient.connect(url)
+var localUrl = 'mongodb://localhost:27017/todo';
+var db = MongoClient.connect( process.env.MONGODB_URI || localUrl )
 
 db.then(function(db){
 
