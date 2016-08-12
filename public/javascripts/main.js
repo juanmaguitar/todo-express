@@ -15,17 +15,33 @@ $(document).ready(function() {
     $alert.show();
   })
 
+  $('form[method="put"]').submit(function(event) {
+    event.preventDefault();
+
+    console.log(this.action);
+    $.ajax({
+      url: this.action,
+      type: 'PUT',
+      data: { _id: this.elements[0].value },
+      success: function(response) {
+        console.log(response)
+        location.href = "/tasks"
+
+      },
+      error: function(error) {
+        $alert.trigger('error', error);
+      }
+    })
+
+  });
+
   $('.task-delete').click(function(event) {
     $target = $(event.target)
     $.ajax({
       type: 'DELETE',
-      url: '/tasks/' + $target.attr('data-task-id'),
-      data: {
-        _csrf: $target.attr('data-csrf')
-      },
+      url: '/task/' + $target.attr('data-task-id'),
       success: function(response) {
-        $target.parent().parent().remove();
-        $alert.trigger('success', 'Task was removed.');
+        location.href = location.href
       },
       error: function(error) {
         $alert.trigger('error', error);

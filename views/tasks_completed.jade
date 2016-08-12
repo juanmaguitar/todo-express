@@ -5,11 +5,17 @@ block content
   .list
     if (tasks.length === 0)
       | No tasks.
-    each task, index in tasks
-      .item
-        div.num
-          span=index+1
-            |.&nbsp;
-        div.name.completed-task
-          span.name=task.name + ' (Completed at: ' + moment(task.completeTime).format("YYYY/MM/DD hh:mm") + ')'
+    else
+      h3
+        span= tasks.length
+        |  completed
+      each task, index in tasks
+        .item
+          div.num
+            span=index+1
+              |.&nbsp;
+          div.name.completed-task
+            span.name=task.name + ' (Completed at: ' + moment(task.completeTime).format("YYYY/MM/DD hh:mm:ss") + ')'
+          div.delete
+            a(class='btn btn-danger btn-xs task-delete', data-task-id=task._id.toString() ) delete
 
