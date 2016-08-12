@@ -50,9 +50,7 @@ db.then(function(db){
 	});
 
 })
-.catch(function(err) {
-	throw new Error("something failed in the connection");
-})
+
 
 
 

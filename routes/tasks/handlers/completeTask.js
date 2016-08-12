@@ -19,7 +19,6 @@ function completeTask(db, req, res) {
 			},
 			function(err, result) {
 				if (err) throw err;
-				console.log(result);
 				res.status(200).send();
 			}
 		);

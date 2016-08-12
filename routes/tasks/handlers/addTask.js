@@ -13,10 +13,7 @@ function addTask(db, req, res) {
 	db.collection('tasks')
 		.insert(task, function(err, result) {
 			if (err) throw err;
-			console.log(result);
-
 			res.redirect('/tasks');
-
 		});
 
 }
