@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "private": true,
   "scripts": {
-    "dev": "MONGODB_URI=mongodb://juanma:hendrix100@ds019624.mlab.com:19624/todo-app nodemon app.js",
+    "dev": "nodemon app.js",
     "start": "node app.js"
   },
   "dependencies": {
