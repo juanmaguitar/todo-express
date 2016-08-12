@@ -30,11 +30,13 @@ if ('development' == app.get('env')) {
   app.use(errorHandler());
 }
 
-var localUrl = 'mongodb://localhost:27017/todo';
-var db = MongoClient.connect( process.env.MONGODB_URI || localUrl )
+var urlDb =  process.env.MONGODB_URI || 'mongodb://localhost:27017/todo';
+var db = MongoClient.connect( urlDb )
 
+console.log ("connect to " + urlDb)
 db.then(function(db){
 
+	console.log ("connected!")
 	app.use ('/', routerTasks(db) );
 
 	app.get ('/', function(req, res) {
