@@ -31,10 +31,11 @@ if ('development' == app.get('env')) {
 }
 
 var urlDb =  process.env.MONGODB_URI || 'mongodb://localhost:27017/todo';
-var db = MongoClient.connect( urlDb )
-
 console.log ("connect to " + urlDb)
-db.then(function(db){
+
+MongoClient.connect( urlDb, function(err, db) {
+
+	if (err) throw err;
 
 	console.log ("connected!")
 	app.use ('/', routerTasks(db) );
@@ -51,7 +52,9 @@ db.then(function(db){
 	  console.log('Express server listening on port ' + PORT);
 	});
 
-})
+} )
+
+
 
 
 
