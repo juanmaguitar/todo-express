@@ -6,9 +6,9 @@ function addTask (req, res) {
 
   task.save()
     .then(() => {
+      const { maxTasks } = req.app.locals
       req.flash('success', `Task "${title}" added correctly!`)
-      req.flash('success', 'Todo bien!')
-      req.flash('danger', 'Todo mal!')
+      req.flash('info', 'Remember that the maximum of tasks is ' + maxTasks)
       res.redirect('/tasks')
     })
 }

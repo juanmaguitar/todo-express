@@ -33,10 +33,17 @@ app.use(session({
   saveUninitialized: true
 }))
 
+const logIfHas = (req, prop) => {
+  if (Object.keys(req[prop]).length !== 0) {
+    console.log(`req.${prop}\n`, req[prop])
+  }
+}
+
 app.use((req, res, next) => {
-  console.log(req.session)
+  ['session', 'body', 'query'].forEach(logIfHas.bind(null, req))
   next()
 })
+
 app.use(flash())
 
 app.use('/tasks', routesTasks)
