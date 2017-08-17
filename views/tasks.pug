@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .row
+    .col-md-8.col-md-offset-2
+      h1 ToDo Manager
+      .jumbotron
+        form.input-group(action='/tasks', method='POST')
+          input.form-control(type='text', name='title',placeholder='Enter a task to do...')
+          span.input-group-btn
+            button.btn.btn-default(type='submit') Add Task!
+      ul.list-group
+        each task in tasks
+          li.list-group-item.task-row
+            p= task.title
+              small= moment(task.createdAt).format('MMMM Do YYYY, h:mm:ss a')
+            input(type="hidden", value=task._id)
+            button.btn.btn-danger.remove Remove
+
+
+
+

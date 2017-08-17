@@ -1,0 +1,10 @@
+.task-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-row p small {
+  margin-left: 10px;
+  color: #aaa;
+}
+
