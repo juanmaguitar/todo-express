@@ -11,7 +11,7 @@ const session = require('express-session')
 
 const app = express()
 
-const PORT = 3002
+const PORT = process.env.PORT || 3002
 const URL_DB = process.env.URL_DB || 'mongodb://localhost:27017/test2'
 
 const routesTasks = require('./routes/tasks')
