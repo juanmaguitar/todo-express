@@ -6,10 +6,12 @@ html(lang='en')
     link(href='/css/styles.css', rel='stylesheet', type='text/css')
   body
     .container
-      - if (messages.success)
-        .alert.alert-success= messages.success
-      block content
+      .row
+        .col-md-8.col-md-offset-2
+          if ( Object.keys(messages).length )
+              each type in Object.keys(messages)
+                each message in messages[type]
+                  div(class="alert alert-"+type)= message
+          block content
     script(src="/bower_components/jquery/dist/jquery.js")
     script(src="/js/main.js")
-
-

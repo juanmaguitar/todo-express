@@ -4,15 +4,13 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const moment = require('moment')
 
-const flash = require('express-flash')
-const cookieParser = require('cookie-parser')
 const session = require('express-session')
-
+const flash = require('express-flash')
 
 const app = express()
 
 const PORT = process.env.PORT || 3002
-const URL_DB = process.env.URL_DB || 'mongodb://localhost:27017/test2'
+const URL_DB = process.env.URL_DB || 'mongodb://localhost:27017/test2'
 
 const routesTasks = require('./routes/tasks')
 const routesTask = require('./routes/task')
@@ -29,12 +27,16 @@ app.use(bodyParser.json())
 app.locals.moment = moment
 app.locals.maxTasks = 10
 
-app.use(cookieParser())
 app.use(session({
   secret: 'cualquierpalabraquesenosocurra',
   resave: true,
   saveUninitialized: true
 }))
+
+app.use((req, res, next) => {
+  console.log(req.session)
+  next()
+})
 app.use(flash())
 
 app.use('/tasks', routesTasks)

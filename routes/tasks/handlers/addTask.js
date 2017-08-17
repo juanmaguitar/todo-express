@@ -6,7 +6,9 @@ function addTask (req, res) {
 
   task.save()
     .then(() => {
-      req.flash('success', 'Task added correctly!');
+      req.flash('success', `Task "${title}" added correctly!`)
+      req.flash('success', 'Todo bien!')
+      req.flash('danger', 'Todo mal!')
       res.redirect('/tasks')
     })
 }
