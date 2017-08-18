@@ -1,0 +1,20 @@
+{
+  "name": "todo-express",
+  "version": "0.2.1",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "1.6.6",
+    "errorhandler": "1.1.1",
+    "express": "4.8.1",
+    "jade": "^1.11.0",
+    "less-middleware": "1.0.4",
+    "moment": "^2.8.4",
+    "mongodb": "^2.2.5",
+    "morgan": "1.2.3",
+    "serve-favicon": "2.1.1"
+  }
+}
