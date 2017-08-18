@@ -1,15 +1,15 @@
-var ObjectID = require('mongodb').ObjectID;
+var ObjectID = require('mongodb').ObjectID
 
-function addTask(db, req, res) {
+function addTask (db, req, res) {
+  var idTask = req.params.id
 
-	var idTask = req.params.id;
-
-	db.collection('tasks')
-		.remove( { _id: ObjectID(idTask) }, function(err, result) {
-			if (err) throw err;
-			res.status(204).send();
-		});
-
+  db.collection('tasks')
+    .remove(
+      { _id: ObjectID(idTask) },
+      function (err, result) {
+        if (err) throw err
+        res.status(204).send()
+      })
 }
 
-module.exports = addTask;
+module.exports = addTask
