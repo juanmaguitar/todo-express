@@ -4,7 +4,7 @@
 
 This is an example of create, read, update, delete web application built with Express.js v4.8.1, and different ways of persisting data (memory variables, session, cookie, files, mongoDB... )
 
-<!-- ![todo list app](_img/todo-app.png) -->
+![todo list app](_img/todo-app.png)
 
 ## Versions of the App
 
@@ -15,6 +15,7 @@ This is an example of create, read, update, delete web application built with Ex
 
 - **branch [mongo-raw](https://github.com/juanmaguitar/todo-express/tree/mongo-raw)** - Tasks stored in DB. Using [`mongodb`](https://www.npmjs.com/package/mongodb) (Official MongDB driver)
 
+- **branch [mongo-raw](https://github.com/juanmaguitar/todo-express/tree/mongo-raw)** - Tasks stored in DB. Using [`mongodb`](https://www.npmjs.com/package/mongodb) (Official MongDB driver)
 
 
 ## More info
