@@ -4,7 +4,12 @@
 
 This is an example of create, read, update, delete web application built with Express.js v4.8.1, and different ways of persisting data (memory variables, session, cookie, files, mongoDB... )
 
+
+#### MongoDB and variables version
 ![todo list app](_img/todo-app.png)
+
+#### Mongoose version
+![todo list app 2](_img/todo-app2.png)
 
 ## Versions of the App
 
